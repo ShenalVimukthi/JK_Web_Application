@@ -52,10 +52,12 @@ export default function Dashboard() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">People Manager</h1>
+        <h1 className="text-3xl font-bold">NUPO Member Database (NMD)</h1>
         <div className="flex gap-2">
-          <button onClick={handleDownloadAll} className="btn-primary">Download All (PDF)</button>
-          <button onClick={() => { setEditing(null); setShowForm(true); }} className="btn-success">Add Person</button>
+          <button onClick={handleDownloadAll} className="btn-primary p-4 m-4 bg-blue-500 rounded-[5px] hover:cursor-pointer
+          hover:bg-blue-600 hover:text-white">Download All (PDF)</button>
+          <button onClick={() => { setEditing(null); setShowForm(true); }} className="btn-success  m-4 p-4 bg-blue-500 rounded-[5px] hover:cursor-pointer
+          hover:bg-blue-600 hover:text-white ">Add Person</button>
         </div>
       </div>
 
