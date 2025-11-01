@@ -15,10 +15,11 @@ const getPersonById = asyncHandler(async (req, res) => {
   else res.status(404).json({ message: 'Person not found' });
 });
 
+
 // @desc    Create person
 const createPerson = asyncHandler(async (req, res) => {
-  const { name, email, phone, department, position } = req.body;
-  const person = await Person.create({ name, email, phone, department, position });
+  const { name, addr, nic, gsDiv, phone } = req.body;
+  const person = await Person.create({ name, addr, nic, gsDiv, phone });
   res.status(201).json(person);
 });
 

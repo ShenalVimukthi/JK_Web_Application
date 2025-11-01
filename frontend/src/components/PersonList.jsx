@@ -16,7 +16,7 @@ export default function PersonList({ people, onEdit, onDelete }) {
       {people.map(person => (
         <div key={person._id} className="border p-4 rounded">
           <h3 className="font-bold">{person.name}</h3>
-          <p>{person.email} | {person.position || 'N/A'}</p>
+          <p>{person.addr} | {person.nic || 'N/A'}</p>
           <div className="mt-2 flex gap-2">
             <button onClick={() => onEdit(person)} className="btn-sm">Edit</button>
             <button onClick={() => onDelete(person._id)} className="btn-danger">Delete</button>
