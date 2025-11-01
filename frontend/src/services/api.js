@@ -15,3 +15,5 @@ export const updatePerson = (id, data) => API.put(`/people/${id}`, data);
 export const deletePerson = (id) => API.delete(`/people/${id}`);
 export const downloadAllPDF = () => API.get('/people/pdf', { responseType: 'blob' });
 export const downloadSinglePDF = (id) => API.get(`/people/${id}/pdf`, { responseType: 'blob' });
+export const downloadAllExcel = () => API.get('people/excel', { responseType: 'blob' });
+export const downloadSingleExcel = (id) => API.get(`people/${id}/excel`, { responseType: 'blob' });

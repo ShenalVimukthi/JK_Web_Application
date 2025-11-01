@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Person = require('../models/person');
 const { generatePDF } = require('../utils/generatePDF');
+const { generateExcel } = require('../utils/generateExcel');
 
 // @desc    Get all people
 const getPeople = asyncHandler(async (req, res) => {
@@ -60,6 +61,19 @@ const downloadSinglePDF = asyncHandler(async (req, res) => {
   generatePDF(person, res, true);
 });
 
+// @desc Download All as Excel
+const downloadAllExcel = asyncHandler(async (req, res) => {
+  const people = await Person.find().lean();
+  await generateExcel(people, res);
+});
+
+// @desc Download single as Excel
+const downloadSingleExcel = asyncHandler(async (req, res) => {
+  const person = await Person.findById(req.params.id).lean();
+  if (!person) return res.status(404).json({ message: 'Person not found' });
+  await generateExcel(person, res, true);
+});
+
 module.exports = {
   getPeople,
   getPersonById,
@@ -67,5 +81,7 @@ module.exports = {
   updatePerson,
   deletePerson,
   downloadAllPDF,
-  downloadSinglePDF
+  downloadSinglePDF,
+  downloadAllExcel,
+  downloadSingleExcel
 };
