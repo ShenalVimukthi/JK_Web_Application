@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function PersonForm({ person, onSave, onCancel }) {
   const [formData, setFormData] = useState(person || {
-    name: '', addr: '', nic: '', gsDiv: '', phone: '',family: ''
+    name: '', addr: '', nic: '', gsDiv: '', phone: '',family: '',residenceTyp:''
   });
 
   const handleChange = (e) => {
@@ -22,8 +22,13 @@ export default function PersonForm({ person, onSave, onCancel }) {
       <input name="nic" value={formData.nic} onChange={handleChange} placeholder="ID Number" className="input border-black border-1 p-2 rounded-[5px]" />
       <input name="gsDiv" value={formData.gsDiv} onChange={handleChange} placeholder="GS Division" className="input border-black border-1 p-2 rounded-[5px]" />
       <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input border-black border-1 p-2 rounded-[5px]" />
-      <input name="family" value={formData.phone} onChange={handleChange} placeholder="No of Family members" className="input border-black border-1 p-2 rounded-[5px]" />
-
+      <input name="family" value={formData.family} onChange={handleChange} placeholder="No of Family members" className="input border-black border-1 p-2 rounded-[5px]" />
+      <select name='residenceTyp' className=' border-black border-1 p-2 rounded-[5px]' onChange={handleChange} value={formData.residenceTyp}>
+        <option disabled>Residence Type</option>
+        <option value="rent">Rental</option>
+        <option value="temp">Temporary</option>
+        <option value="unauth">Unauthorized</option>
+      </select>
       <div className="flex gap-2">
         <button type="submit" className="btn-primary bg-blue-500 p-2 rounded-[2px] text-white hover:bg-blue-400">Save</button>
         <button type="button" onClick={onCancel} className="btn-secondary bg-red-400 p-2 rounded-[2px] text-white hover:bg-red-300">Cancel</button>

@@ -7,6 +7,8 @@ const personSchema = new mongoose.Schema({
   nic:   { type: String, required: true, unique: true },
   gsDiv: { type: String, required:true },
   phone: { type: String, required:true },
+  family:{ type:String,  required:true},
+  residenceTyp:{ type:String, required:true}
   
 });
 

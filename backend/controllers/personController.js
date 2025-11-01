@@ -18,10 +18,11 @@ const getPersonById = asyncHandler(async (req, res) => {
 
 // @desc    Create person
 const createPerson = asyncHandler(async (req, res) => {
-  const { name, addr, nic, gsDiv, phone } = req.body;
-  const person = await Person.create({ name, addr, nic, gsDiv, phone });
+  const { name, addr, nic, gsDiv, phone, family, residenceTyp } = req.body;
+  const person = await Person.create({ name, addr, nic, gsDiv, phone, family, residenceTyp });
   res.status(201).json(person);
 });
+
 
 // @desc    Update person
 const updatePerson = asyncHandler(async (req, res) => {
