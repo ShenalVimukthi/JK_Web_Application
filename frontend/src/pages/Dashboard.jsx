@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchPeople,
   createPerson,
@@ -18,6 +19,7 @@ export default function Dashboard() {
   const [editing, setEditing] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [downloading, setDownloading] = useState({}); // { id: true } or { all: true }
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadPeople();
@@ -58,6 +60,13 @@ export default function Dashboard() {
     } catch (err) {
       toast.error('Delete failed',err);
     }
+  };
+
+  const handleLogout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('tokenExpiry');
+  toast.info('Logged out');
+  navigate('/');
   };
 
   // ──────────────────────────────────────────────────────────────────────
@@ -150,6 +159,9 @@ export default function Dashboard() {
           >
             Add Person
           </button>
+
+          {/* logout */}
+          <button onClick={handleLogout} className="btn bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 ">Logout</button>
         </div>
       </div>
 

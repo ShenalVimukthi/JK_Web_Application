@@ -12,13 +12,25 @@ const generateExcel = async (people, res, single = false) => {
     { header: 'NIC', key: 'nic', width: 18 },
     { header: 'GS Division', key: 'gsDiv', width: 20 },
     { header: 'Phone', key: 'phone', width: 15 },
-    { header: 'Family', key: 'family', width: 15 },
+    { header: 'No Of Family Members', key: 'family', width: 15 },
     { header: 'Residence Type', key: 'residenceTyp', width: 20 },
   ];
 
   // Add rows
   if (single) {
     const p = people;
+
+  // decoding residence type to full word format
+    // const rTyp='';
+
+    // if(p.residenceTyp=='unauth'){
+    //     rTyp='Unauthorized'
+    // }else if(p.residenceTyp=='temp'){
+    //     rTyp='Temporary'
+    // }else{
+    //     rTyp='Rental'
+    // }
+
     worksheet.addRow({
       name: p.name,
       addr: p.addr || 'N/A',
@@ -26,10 +38,19 @@ const generateExcel = async (people, res, single = false) => {
       gsDiv: p.gsDiv || 'N/A',
       phone: p.phone || 'N/A',
       family: p.family || 'N/A',
-      residenceTyp: p.residenceTyp || 'N/A',
+      residenceTyp:p.residenceTyp || 'N/A',
     });
   } else {
     people.forEach(p => {
+      // const rTyp='';
+
+      // if(p.residenceTyp=='unauth'){
+      //     rTyp='Unauthorized'
+      // }else if(p.residenceTyp=='temp'){
+      //     rTyp='Temporary'
+      // }else{
+      //   rTyp='Rental'
+      // }
       worksheet.addRow({
         name: p.name,
         addr: p.addr || 'N/A',
