@@ -1,54 +1,53 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Check if token is valid (not expired)
-const isAuthenticated = () => {
-  const token = localStorage.getItem('token');
-  const expiry = localStorage.getItem('tokenExpiry');
-  
-  if (!token || !expiry) {
-    return false;
-  }
-  
-  // Token expired → cleanup and return false
-  if (Date.now() > parseInt(expiry)) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpiry');
-    return false;
-  }
-  
-  return true;
-};
-
 function App() {
-  // Always check fresh authentication status
-  const isAuth = isAuthenticated();
+  const [isAuth, setIsAuth] = useState(false);
+
+  const checkAuth = () => {
+    const token = localStorage.getItem('token');
+    const expiry = localStorage.getItem('tokenExpiry');
+
+    const valid = token && expiry && Date.now() < parseInt(expiry);
+    setIsAuth(!!valid);
+
+    if (!valid) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('tokenExpiry');
+    }
+  };
+
+  // Run on mount
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  // Listen for login/logout events
+  useEffect(() => {
+    const handler = () => checkAuth();
+    window.addEventListener('localstorage-updated', handler);
+    return () => window.removeEventListener('localstorage-updated', handler);
+  }, []);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route 
-            path="/" 
-            element={isAuth ? <Navigate to="/dashboard" /> : <Login />} 
-          />
-          <Route 
-            path="/dashboard" 
-            element={isAuth ? <Dashboard /> : <Navigate to="/" />} 
-          />
+          <Route path="/" element={isAuth ? <Navigate to="/dashboard" replace /> : <Login />} />
+          <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer />
     </>
   );
 }
 
 export default App;
-
-
 
 
 

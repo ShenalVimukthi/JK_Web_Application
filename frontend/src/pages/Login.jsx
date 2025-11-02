@@ -2,6 +2,7 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/api';
 import { toast } from 'react-toastify';
+import { checkAuth } from '../../../backend/utils/auth';
 
 export default function Login() {
   const [creds, setCreds] = useState({ email: '', password: '' });
@@ -19,6 +20,10 @@ export default function Login() {
       localStorage.setItem('tokenExpiry', Date.now() + 60 * 60 * 1000);
 
       toast.success('Login successful!');
+
+      checkAuth();
+
+      window.dispatchEvent(new Event('localstorage-updated'));
 
       // STEP 3: Now navigate
       navigate('/dashboard', { replace: true });

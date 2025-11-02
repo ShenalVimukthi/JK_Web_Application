@@ -63,10 +63,11 @@ export default function Dashboard() {
   };
 
   const handleLogout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('tokenExpiry');
-  toast.info('Logged out');
-  navigate('/');
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpiry');
+    window.dispatchEvent(new Event('localstorage-updated'));
+    toast.info('Logged out');
+    navigate('/');
   };
 
   // ──────────────────────────────────────────────────────────────────────
